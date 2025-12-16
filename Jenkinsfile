@@ -4,22 +4,20 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                echo 'Checking out source…'
+                sh '''
+                rm -rf *
+                git clone https://github.com/anurajyellurkar/airline_reservation_devops.git .
+                '''
             }
         }
-        stage('Build') {
+
+        stage('Build & Deploy') {
             steps {
-                echo 'Building…'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing…'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying…'
+                sh '''
+                docker rm -f airline || true
+                docker build --no-cache -t airline-app .
+                docker run -d -p 80:80 --name airline --link mysql-db:mysql-db airline-app
+                '''
             }
         }
     }

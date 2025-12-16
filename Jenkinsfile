@@ -22,12 +22,17 @@ pipeline {
         }
 
         stage('Deploy Container') {
-            steps {
-                sh '''
-                docker rm -f airline || true
-                docker run -d -p 80:80 --name airline --link mysql-db:mysql-db airline-app
-                '''
-            }
-        }
+    steps {
+        sh '''
+        docker rm -f airline || true
+        docker run -d \
+        --name airline \
+        --network airline-net \
+        -p 80:80 \
+        airline-app
+        '''
+    }
+}
+
     }
 }

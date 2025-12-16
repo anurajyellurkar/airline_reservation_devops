@@ -3,17 +3,14 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
+        stage('Checkout Code') {
             steps {
-                sh '''
-                git reset --hard
-                git clean -fd
-                git pull origin main
-                '''
+                git branch: 'main',
+                    url: 'https://github.com/anurajyellurkar/airline_reservation_devops.git'
             }
         }
 
-        stage('Build Image') {
+        stage('Build Docker Image') {
             steps {
                 sh '''
                 docker build --no-cache -t airline-app .
@@ -21,18 +18,18 @@ pipeline {
             }
         }
 
-        stage('Deploy Container') {
-    steps {
-        sh '''
-        docker rm -f airline || true
-        docker run -d \
-        --name airline \
-        --network airline-net \
-        -p 80:80 \
-        airline-app
-        '''
-    }
-}
+        stage('Deploy Application') {
+            steps {
+                sh '''
+                docker rm -f airline || true
 
+                docker run -d \
+                --name airline \
+                --network airline-net \
+                -p 80:80 \
+                airline-app
+                '''
+            }
+        }
     }
 }

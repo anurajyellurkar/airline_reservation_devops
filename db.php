@@ -1,7 +1,7 @@
 <?php
-$servername = "localhost";
+$servername = "mysql-db";   // MySQL container name
 $username = "root";
-$password = "";
+$password = "root";
 $dbname = "airline_system";
 
 $conn = new mysqli($servername, $username, $password, $dbname);

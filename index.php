@@ -12,7 +12,7 @@ session_start();
 <body>
 <header>
     <div class="container">
-        <h1>Airline Reservation System Anuraj</h1>
+        <h1>Airline Reservation System Anuraj.</h1>
         <nav>
             <a href="about.php">About</a>
             <?php if(!isset($_SESSION['user_id'])): ?>

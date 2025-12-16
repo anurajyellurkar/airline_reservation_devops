@@ -6,7 +6,7 @@ session_start();
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Airline Reservation System</title>
+    <title>Airline Reservation System Anuraj</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>

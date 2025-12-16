@@ -6,8 +6,9 @@ pipeline {
         stage('Checkout') {
             steps {
                 sh '''
-                rm -rf *
-                git clone https://github.com/anurajyellurkar/airline_reservation_devops.git .
+                git reset --hard
+                git clean -fd
+                git pull origin main
                 '''
             }
         }

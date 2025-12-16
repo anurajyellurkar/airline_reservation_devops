@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     stages {
+
         stage('Checkout') {
             steps {
                 sh '''
@@ -11,11 +12,18 @@ pipeline {
             }
         }
 
-        stage('Build & Deploy') {
+        stage('Build Image') {
+            steps {
+                sh '''
+                docker build --no-cache -t airline-app .
+                '''
+            }
+        }
+
+        stage('Deploy Container') {
             steps {
                 sh '''
                 docker rm -f airline || true
-                docker build --no-cache -t airline-app .
                 docker run -d -p 80:80 --name airline --link mysql-db:mysql-db airline-app
                 '''
             }
